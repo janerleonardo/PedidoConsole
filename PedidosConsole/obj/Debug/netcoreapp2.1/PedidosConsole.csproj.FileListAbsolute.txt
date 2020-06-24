@@ -1,0 +1,13 @@
+E:\PedidoConsole\PedidosConsole\PedidosConsole\bin\Debug\netcoreapp2.1\PedidosConsole.deps.json
+E:\PedidoConsole\PedidosConsole\PedidosConsole\bin\Debug\netcoreapp2.1\PedidosConsole.runtimeconfig.json
+E:\PedidoConsole\PedidosConsole\PedidosConsole\bin\Debug\netcoreapp2.1\PedidosConsole.runtimeconfig.dev.json
+E:\PedidoConsole\PedidosConsole\PedidosConsole\bin\Debug\netcoreapp2.1\PedidosConsole.dll
+E:\PedidoConsole\PedidosConsole\PedidosConsole\bin\Debug\netcoreapp2.1\PedidosConsole.pdb
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.AssemblyInfoInputs.cache
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.AssemblyInfo.cs
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.dll
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.pdb
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.genruntimeconfig.cache
+E:\PedidoConsole\PedidosConsole\PedidosConsole\bin\Debug\netcoreapp2.1\PedidosConsole.dll.config
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.csprojAssemblyReference.cache
+E:\PedidoConsole\PedidosConsole\PedidosConsole\obj\Debug\netcoreapp2.1\PedidosConsole.csproj.CoreCompileInputs.cache
