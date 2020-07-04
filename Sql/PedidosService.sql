@@ -19,7 +19,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 
-	set @v_fecha  = '2020-06-01 06:30:00.000';
+	set @v_fecha  = getdate();
 	
 
 	if @v_fecha <  convert(char(10),@v_fecha,20) + ' 07:00:00.000'
