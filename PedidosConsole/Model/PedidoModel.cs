@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PedidosConsole.Model
 {
-    public class PedidoModel
+    public class PedidoModel : IDisposable
     {
         /// <summary>
         /// Username del usuario logeado en Siesa App
@@ -358,12 +358,17 @@ namespace PedidosConsole.Model
         /// </summary>
         public List<MovtoPedidoModel> MovimientoPedido { get; set; } = new List<MovtoPedidoModel>();
 
-        #region Seccion Campos Consulta Entity
+      
         /// <summary>
         /// Código del tipo de documento.
         /// </summary>
         [MaxLength(3, ErrorMessage = "Campo 'IdTipoDocto' debe ser de máximo de 3 carácteres.")]
         public string IdTipoDocto { get; set; }
+        #region Seccion Campos Consulta Entity
+        public void Dispose()
+        {
+             GC.SuppressFinalize(this);
+        }
 
 
 

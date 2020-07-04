@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PedidosConsole.Model
 {
-    public class MovtoPedidoModel
+    public class MovtoPedidoModel : IDisposable
     {
         /// <summary>
         /// Código del item. Excluyente con el identificador interno 
@@ -233,5 +233,9 @@ namespace PedidosConsole.Model
         /// </summary>
         public int RowidTerceroVendedorMovto { get; set; }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
     }
 }
