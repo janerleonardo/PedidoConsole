@@ -4,6 +4,8 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PedidosConsole
@@ -16,6 +18,22 @@ namespace PedidosConsole
             EventLogs eventLogs = new EventLogs();
             try
             {
+                // requires using System.Configuration;
+                string programName = "PedidosConsole";
+                var sourceHostFile = Directory.GetCurrentDirectory() + @"\" + programName + @".dll.config";
+                Console.WriteLine("¡Procesando pedidos (No cierre)!" );
+                // to load yourProgram.dll.config
+                // With Single-file executables, all files are bundled in a single host file with the .exe extension. 
+                // When that file runs for the first time, it unpacks its contents to AppData\Local\Temp\.net\, in a new folder named for the application
+                var targetHostFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
+                // ignore when in debug mode in vs ide
+                if (sourceHostFile != targetHostFile)
+                {
+                    File.Copy(sourceHostFile, targetHostFile, true);
+                }
+
+
+
 
                 string url = ConfigurationSettings.AppSettings["URL_API"].ToString();
                 string user = ConfigurationSettings.AppSettings["USER"].ToString();
@@ -24,7 +42,8 @@ namespace PedidosConsole
                 string comp = ConfigurationSettings.AppSettings["COMPANIA"].ToString();
                 string database = ConfigurationSettings.AppSettings["DATABASE"].ToString();
 
-                
+    
+
                 eventLogs.WriteEntry("Sincronizando Pedidos", EventLogEntryType.Information);
 
                 Database databaseTools = new Database(database);
@@ -33,11 +52,13 @@ namespace PedidosConsole
                 string TipoPedido = "";
 
 
-                PedidoModel pedido = new PedidoModel();
-                MovtoPedidoModel movto = new MovtoPedidoModel();
+
                 DateTime thisDay = DateTime.Today;
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
+
+                    PedidoModel pedido = new PedidoModel();
+                    MovtoPedidoModel movto = new MovtoPedidoModel();
 
                     pedido.IdCo = row["IdCo"].ToString();
                     pedido.IdTipoDocto = row["IdTipoDocto"].ToString();
@@ -85,8 +106,8 @@ namespace PedidosConsole
                     movto.NumDiasEntregaMovto = int.Parse(row["NumDiasEntregaMovto"].ToString());
                     movto.IdListaPrecios = row["IdListaPrecios"].ToString();
                     movto.IdUnidadMedida = row["IdUnidadMedida"].ToString();
-                    string CantidadPunto = Double.Parse(row["CantPedidaBase"].ToString()).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    movto.CantPedidaBase = Double.Parse(CantidadPunto);
+                    string CantidadPunto = Double.Parse(row["CantPedidaBase"].ToString()).ToString(CultureInfo.InvariantCulture);
+                    movto.CantPedidaBase = CantidadPunto;
                     movto.PrecioUnitario = Double.Parse(row["PrecioUnitario"].ToString());
                     movto.IndImpuestoAsumido = int.Parse(row["IndImpuestoAsumido"].ToString());
                     movto.NotasMovto = row["NotasMovto"].ToString();
@@ -119,7 +140,8 @@ namespace PedidosConsole
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"{ex.Message}");
+                Console.ReadLine();
                 eventLogs.WriteEntry(ex.Message, EventLogEntryType.Error);
             }
 

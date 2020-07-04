@@ -154,7 +154,7 @@ namespace PedidosConsole.Model
         /// Código de la unidad de medida del movimiento..
         /// </summary>
         [Required(ErrorMessage = "Campo 'CantPedidaBase' es obligatorio.")]
-        public double CantPedidaBase { get; set; }
+        public string CantPedidaBase { get; set; }
 
         /// <summary>
         /// Cantidad adicional del movimiento.
