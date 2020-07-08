@@ -32,12 +32,18 @@ namespace PedidosConsole
                     File.Copy(sourceHostFile, targetHostFile, true);
                 }
 
-                if (args.Length == 0)
+                string fecha = null;
+               // string turno = null;
+                if (args.Length != 0)
                 {
+                    Console.WriteLine("Ingrese Fecha y hora de turno(yyyy-mm-dd HH:MM) formato hora (24 horas)");
+                    fecha = Console.ReadLine();
+                    //Console.WriteLine("Ingrese Turno donde \n  1: 6 am a 2 pm \n  2: 2 pm a 10 pm, \n  3: 10 pm a 6 am \n  ");
+                    //turno = Console.ReadLine();
 
                 }
 
-
+                //Console.WriteLine($"fecha {fecha}, {DateTime.Parse(fecha)}");
 
                 string url = ConfigurationSettings.AppSettings["URL_API"].ToString();
                 string user = ConfigurationSettings.AppSettings["USER"].ToString();
@@ -53,12 +59,9 @@ namespace PedidosConsole
 
                 Database databaseTools = new Database(database);
                 //DataSet  ds = databaseTools.RunQuery("select top 1 id Id, IdCierre, IdTerceroVendedor,Factura,Placa,DineroTotal,PuntosTercero1 from Adm_Ventas");
-                DataSet ds = databaseTools.RunStoreProcedure("dbo.PedidosServices");
+                DataSet ds = databaseTools.RunStoreProcedure("dbo.PedidosServices", fecha);
                 string TipoPedido = "";
 
-
-
-                DateTime thisDay = DateTime.Today;
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
 
@@ -133,7 +136,7 @@ namespace PedidosConsole
 
                                 if (Errores.Count > 0)
                                 {
-                                    eventLogs.WriteEntry($"Error {Errores}, IdItem: {pedido.MovimientoPedido[0].IdItem}, Tipo: {TipoPedido}, IdTerceroFact: {pedido.IdTerceroFact} ", EventLogEntryType.Error);
+                                    eventLogs.WriteEntry($"Error {Errores}, IdItem: {pedido.MovimientoPedido[0].IdItem}, Tipo: {TipoPedido}, IdTerceroFact: {pedido.IdTerceroFact}, Cnatidad {pedido.MovimientoPedido[0].CantPedidaBase}", EventLogEntryType.Error);
                                 }
                         }
                     }

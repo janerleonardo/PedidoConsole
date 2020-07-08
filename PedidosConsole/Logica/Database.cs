@@ -87,18 +87,23 @@ namespace PedidosConsole.Logica
 
         }
 
-        public DataSet RunStoreProcedure(string Command)
+        public DataSet RunStoreProcedure(string Command, string Params)
         {
             try
             {
-
-            
+                DateTime? fecha = null;
+                if (Params != null)
+                {
+                    fecha = DateTime.Parse(Params);
+                }
+               
                 DataSet Ds = new DataSet();
                 using (SqlConnection sql = new SqlConnection(Conexion))
                 {
                     using (SqlCommand cmd = new SqlCommand(Command,sql))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@fecha", fecha));
                         SqlDataAdapter sadapter = new SqlDataAdapter(cmd);
                         sql.Open();
                         sadapter.Fill(Ds);

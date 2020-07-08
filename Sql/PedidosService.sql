@@ -7,7 +7,7 @@ IF  EXISTS (SELECT * FROM sysobjects WHERE ID = OBJECT_ID(N'dbo.PedidosServices'
 			 AND type in (N'P', N'PC'))
    DROP PROCEDURE dbo.PedidosServices
 go
-CREATE PROCEDURE dbo.PedidosServices
+CREATE PROCEDURE dbo.PedidosServices @fecha datetime = null
 
 AS
 DECLARE @v_fecha_inicial datetime
@@ -19,7 +19,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 
-	set @v_fecha  = getdate();
+	set @v_fecha  = case when @fecha is null then getdate() else @fecha end;
 	
 
 	if @v_fecha <  convert(char(10),@v_fecha,20) + ' 07:00:00.000'
@@ -93,7 +93,7 @@ BEGIN
 
 					,estacion.Generico1					IdListaPrecios  --003 
 
-					,case when items.IdExterno =  '0000196' then 'UND'      
+					,case when items.IdExterno in ('0000196','0000004') then 'UND'     
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
@@ -188,7 +188,7 @@ BEGIN
 
 					,estacion.Generico1					IdListaPrecios  --003 
 
-					,case when items.IdExterno =  '0000196' then 'UND'      
+					,case when items.IdExterno in ('0000196','0000004') then 'UND'        
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
@@ -273,7 +273,7 @@ BEGIN
 
 					,estacion.Generico1					IdListaPrecios  --003 
 
-					,case when items.IdExterno =  '0000196' then 'UND'      
+					,case when items.IdExterno in ('0000196','0000004') then 'UND'       
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
@@ -357,7 +357,7 @@ BEGIN
 
 					,estacion.Generico1					IdListaPrecios  --003 
 
-					,case when items.IdExterno =  '0000196' then 'UND'      
+					,case when items.IdExterno in ('0000196','0000004') then 'UND'     
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
@@ -392,14 +392,14 @@ BEGIN
 
 		SELECT 
 					estacion.CentroDeCostos				IdCo
-					,formaPago.IdExterno					IdTipoDocto
+					,'SFE'								IdTipoDocto
 					,4									ConsecDocto
 					,@v_fecha							IdFecha
 					,2									IndEstado
 					,1									IndBackorder
-					,'222222001'							IdTerceroFact
+					,'900045238'							IdTerceroFact
 					,estacion.Generico2					IdSucursalFact
-					,'222222001'							IdTerceroRem
+					,'900045238'							IdTerceroRem
 					,estacion.Generico2					IdSucursalRem
 					,'0013'								IdTipoClienteFact
 					,estacion.CentroDeCostos				IdCOFact
@@ -441,7 +441,7 @@ BEGIN
 
 					,estacion.Generico1					IdListaPrecios  --003 
 
-					,case when items.IdExterno =  '0000196' then 'UND'      
+					,case when items.IdExterno in ('0000196','0000004') then 'UND'      
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
@@ -469,7 +469,7 @@ BEGIN
 		inner join Adm_ItemsPorVentas itemsVentas on  itemsVentas.IdVenta = ventas.Id
 		inner join Gen_Productos items on items.Id  = itemsVentas.IdProducto
 		inner join Ter_Flotas flotas on flotas.Id  = ventas.IdFlota
-		where  xventas.IdFormaDePago = 101 AND cierre.FechaFinaL  between @v_fecha_inicial and @v_fecha_final
+		where cierre.FechaFinaL  between @v_fecha_inicial and @v_fecha_final
 		and DATEDIFF(MINUTE,cierre.FechaInicial,cierre.FechaFinal) >30 and flotas.Documento  in ( '900045238',  '9000452381' ,'9000452382')
 	
 
