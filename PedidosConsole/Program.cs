@@ -32,6 +32,10 @@ namespace PedidosConsole
                     File.Copy(sourceHostFile, targetHostFile, true);
                 }
 
+                if (args.Length == 0)
+                {
+
+                }
 
 
 
@@ -41,6 +45,7 @@ namespace PedidosConsole
                 string conexion = ConfigurationSettings.AppSettings["CONEXION"].ToString();
                 string comp = ConfigurationSettings.AppSettings["COMPANIA"].ToString();
                 string database = ConfigurationSettings.AppSettings["DATABASE"].ToString();
+
 
     
 

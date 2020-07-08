@@ -97,9 +97,9 @@ BEGIN
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
-					,ISNULL(sum(itemsVentas.Cantidad),1)	CantPedidaBase ------------------------
+					,ISNULL(sum(itemsVentas.Cantidad),0)	CantPedidaBase ------------------------
 
-					,ISNULL(sum(itemsVentas.Ppu),1)	    PrecioUnitario
+					,ISNULL(itemsVentas.Ppu,0)	    PrecioUnitario
 
 					,0									IndImpuestoAsumido  --0
 				
@@ -131,6 +131,7 @@ BEGIN
 				,estacion.Generico2
 				,estacion.Generico4	
 				,estacion.Generico3
+				,itemsVentas.Ppu
 
 	union
 
@@ -191,7 +192,7 @@ BEGIN
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
-					,ISNULL(itemsVentas.Cantidad,1)			CantPedidaBase ------------------------
+					,ISNULL(itemsVentas.Cantidad,0)			CantPedidaBase ------------------------
 
 					,ISNULL(itemsVentas.Ppu,0)				PrecioUnitario
 
@@ -360,7 +361,7 @@ BEGIN
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
-					,ISNULL(itemsVentas.Cantidad,1)				CantPedidaBase ------------------------
+					,ISNULL(itemsVentas.Cantidad,0)				CantPedidaBase ------------------------
 
 					,ISNULL(itemsVentas.Ppu,0)				PrecioUnitario
 
@@ -444,7 +445,7 @@ BEGIN
 							when items.IdExterno =  '0000003'then  'MTS'
 							else 'GLN' end				IdUnidadMedida --GLN acer un case con la tabla  Gen_UnidadesDeMedidas entrando con pproducto
 
-					,ISNULL(itemsVentas.Cantidad,1)				CantPedidaBase ------------------------
+					,ISNULL(itemsVentas.Cantidad,0)				CantPedidaBase ------------------------
 
 					,ISNULL(itemsVentas.Ppu,0)				PrecioUnitario
 
