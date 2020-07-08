@@ -111,7 +111,6 @@ namespace PedidosConsole.Logica
             catch (Exception ex)
             {
                 Console.WriteLine($"Error {ex.Message}");
-                Console.ReadLine();
                 eventLogs.WriteEntry($"Error {ex.Message}", EventLogEntryType.Error);
                 throw;
             }

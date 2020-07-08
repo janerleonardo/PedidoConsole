@@ -153,7 +153,6 @@ namespace PedidosConsole
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
-                Console.ReadLine();
                 eventLogs.WriteEntry(ex.Message, EventLogEntryType.Error);
             }
 
