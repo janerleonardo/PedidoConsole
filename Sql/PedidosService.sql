@@ -410,7 +410,7 @@ BEGIN
 					,1									TasaConv  
 					,'COP'								IdMonedaLocal
 					,1									TasaLocal
-					,'1				'					IdCondPago   --Cambia Credito
+					,'1'					IdCondPago   --Cambia Credito
 					,0									IndImpresion 
 					,'Pedido Consumo Interno'					Notas
 					,'000'								IdPuntoEnvio	 --000							 
